@@ -32,7 +32,7 @@
         }
       }`
 # aws clients resource creation using regular approach
-**The resources using this approach can take less time to be created/updated**
+***The resources using this approach can take less time to be created/updated***
 1. ***Sync this way the main thread is held until the resource is created/updated***
     `CognitoIdentityProviderClient cognitoProviderClient = CognitoIdentityProviderClient.builder().build();`
 
