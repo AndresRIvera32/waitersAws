@@ -44,6 +44,6 @@
 
       CompletableFuture<CreateUserPoolResponse> response = cognitoClient.createUserPool(request);
       while (!response.isDone()) Thread.sleep(1000);
-      return response.get().userPool().id();
-    `
+      return response.get().userPool().id();`
+    
 
