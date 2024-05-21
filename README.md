@@ -3,23 +3,27 @@
 1. Sync which will be waiting for the resource to be created/updated.
      >`LambdaClient awsLambda = LambdaClient.builder().build();
       LambdaWaiter lambdaWaiter = lambdaClient.waiter();`
+     
      **Using this approach the main thread will be held until the resource exist**
      **This is a synchronous and blocking solution**
+     
      >`WaiterResponse<GetFunctionResponse> waiterResponse =  lambdaWaiter.waitUntilFunctionExists(getFunctionRequest);
       Optional<GetFunctionResponse> functionResponseOptional = waiterResponse.matched().response();`
      **validate if the function was created**
+     
      >` if (functionResponseOptional.isPresent()){
           addLambdaPermission(awsLambda, functionName, "statement", action, principal, sourceArn);
       }`
 2. ***Async which will execute in a thread aside and will not block the main thread***
-     >`SecretsManagerAsyncClient secretsManagerAsyncClient = SecretsManagerAsyncClient.builder().region(region)
+
+    >`SecretsManagerAsyncClient secretsManagerAsyncClient = SecretsManagerAsyncClient.builder().region(region)
         .endpointOverride(URI.create(ENDPOINT_URL))
-        .build();
-     CloudWatchAsyncWaiter cloudWatchWaiter = cloudWatchClient.waiter();
+        .build();`
+     `CloudWatchAsyncWaiter cloudWatchWaiter = cloudWatchClient.waiter();`
 
-     DescribeAlarmsRequest describeAlarmsRequest =DescribeAlarmsRequest.builder().build();
+     `DescribeAlarmsRequest describeAlarmsRequest =DescribeAlarmsRequest.builder().build();`
 
-     CompletableFuture<WaiterResponse<DescribeAlarmsResponse>> future = cloudWatchWaiter.waitUntilAlarmExists(describeAlarmsRequest);
+     `CompletableFuture<WaiterResponse<DescribeAlarmsResponse>> future = cloudWatchWaiter.waitUntilAlarmExists(describeAlarmsRequest);
       if(future.isDone()){
         Optional<DescribeAlarmsResponse> optional = future.get().matched().response();
         if(optional.isPresent()){
