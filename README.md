@@ -9,6 +9,7 @@
      
      >`WaiterResponse<GetFunctionResponse> waiterResponse =  lambdaWaiter.waitUntilFunctionExists(getFunctionRequest);
       Optional<GetFunctionResponse> functionResponseOptional = waiterResponse.matched().response();`
+     
      **validate if the function was created**
      
      >` if (functionResponseOptional.isPresent()){
@@ -35,18 +36,18 @@
 1. ***Sync this way the main thread is held until the resource is created/updated***
   > `CognitoIdentityProviderClient cognitoProviderClient = CognitoIdentityProviderClient.builder()
         .build();
-    CreateUserPoolRequest request = CreateUserPoolRequest.builder()
+    `CreateUserPoolRequest request = CreateUserPoolRequest.builder()
           .poolName(userPoolName)
-          .build();
+          .build();`
 
-      CreateUserPoolResponse response = cognitoClient.createUserPool(request);
+      `CreateUserPoolResponse response = cognitoClient.createUserPool(request);
       return response.userPool().id();`
 2. Async the resource will be created in a thread aside using CompletableFuture api
     > `CreateUserPoolRequest request = CreateUserPoolRequest.builder()
           .poolName(userPoolName)
-          .build();
+          .build();`
 
-      CompletableFuture<CreateUserPoolResponse> response = cognitoClient.createUserPool(request);
+      `CompletableFuture<CreateUserPoolResponse> response = cognitoClient.createUserPool(request);
       while (!response.isDone()) Thread.sleep(1000);
       return response.get().userPool().id();`
     
