@@ -25,12 +25,12 @@
      `DescribeAlarmsRequest describeAlarmsRequest =DescribeAlarmsRequest.builder().build();`
 
      `CompletableFuture<WaiterResponse<DescribeAlarmsResponse>> future = cloudWatchWaiter.waitUntilAlarmExists(describeAlarmsRequest);
-      `if(future.isDone()){`
-       ` Optional<DescribeAlarmsResponse> optional = future.get().matched().response();`
-        `if(optional.isPresent()){`
-          `optional.get().metricAlarms();`
-        `}`
-      `}`
+      `if(future.isDone()){
+       Optional<DescribeAlarmsResponse> optional = future.get().matched().response();
+        if(optional.isPresent()){
+          optional.get().metricAlarms();
+        }
+      }`
 # aws clients resource creation using regular approach
 **The resources using this approach can take less time to be created/updated**
 1. ***Sync this way the main thread is held until the resource is created/updated***
