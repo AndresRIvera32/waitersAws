@@ -1,4 +1,4 @@
-# aws waiters resource creation
+# aws sdk waiters resource creation
 ***The resources created using this approach has two ways of creation and their intention is when the resource can take a longer time to be created/updated***
 1. Sync which will be waiting for the resource to be created/updated.
      ```
@@ -34,7 +34,7 @@
         }
       }
      ```
-# aws clients resource creation using regular approach
+# aws sdk clients resource creation using regular approach
 ***The resources using this approach can take less time to be created/updated***
 1. ***Sync this way the main thread is held until the resource is created/updated***
    ```
