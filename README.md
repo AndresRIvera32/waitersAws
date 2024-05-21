@@ -34,13 +34,14 @@
 # aws clients resource creation using regular approach
 **The resources using this approach can take less time to be created/updated**
 1. ***Sync this way the main thread is held until the resource is created/updated***
-  > `CognitoIdentityProviderClient cognitoProviderClient = CognitoIdentityProviderClient.builder().build();`
+    `CognitoIdentityProviderClient cognitoProviderClient = CognitoIdentityProviderClient.builder().build();`
+
     `CreateUserPoolRequest request = CreateUserPoolRequest.builder().poolName(userPoolName).build();`
 
-      `CreateUserPoolResponse response = cognitoClient.createUserPool(request);
+   `CreateUserPoolResponse response = cognitoClient.createUserPool(request);
       return response.userPool().id();`
 2. ***Async the resource will be created in a thread aside using CompletableFuture api***
-    > `CreateUserPoolRequest request = CreateUserPoolRequest.builder().poolName(userPoolName).build();`
+    `CreateUserPoolRequest request = CreateUserPoolRequest.builder().poolName(userPoolName).build();`
 
       `CompletableFuture<CreateUserPoolResponse> response = cognitoClient.createUserPool(request);`
       `while (!response.isDone()) Thread.sleep(1000);`
