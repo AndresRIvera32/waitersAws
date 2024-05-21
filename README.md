@@ -1,9 +1,10 @@
 # aws waiters resource creation
 ***The resources created using this approach has two ways of creation and their intention is when the resource can take a longer time to be created/updated***
 1. Sync which will be waiting for the resource to be created/updated.
-     ```LambdaClient awsLambda = LambdaClient.builder().build();
-      LambdaWaiter lambdaWaiter = lambdaClient.waiter();```
-     
+     ```
+     LambdaClient awsLambda = LambdaClient.builder().build();
+      LambdaWaiter lambdaWaiter = lambdaClient.waiter();
+     ```
      **Using this approach the main thread will be held until the resource exist**
      **This is a synchronous and blocking solution**
      
